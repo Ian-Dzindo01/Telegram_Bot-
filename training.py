@@ -47,3 +47,15 @@ for document in documents:
         bag.append(1) if word in word_patterns else bag.append(0):
 
 
+    output_row = list(output_empty)
+    output_row[classes.index(document[1])] = 1
+    training.append([bag, output_row])
+
+random.shuffle(training)
+training = np.array(training)
+
+train_x = list(training[:, 0)]
+train_y = list(training[:, 1)]
+
+model = Sequential()
+model.add(Dense(128, input_shape=len(train_x[0])))
