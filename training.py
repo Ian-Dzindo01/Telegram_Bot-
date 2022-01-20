@@ -58,4 +58,7 @@ train_x = list(training[:, 0)]
 train_y = list(training[:, 1)]
 
 model = Sequential()
-model.add(Dense(128, input_shape=len(train_x[0])))
+model.add(Dense(128, input_shape=(len(train_x[0]),), activation='relu'))
+model.add(Dropout(0.5))                                 # prevent overfitting
+model.add(Dense(64, activation='relu'))                 # 64 neurons
+model.add(Dropout)
