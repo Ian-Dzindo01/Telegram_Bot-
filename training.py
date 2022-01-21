@@ -12,6 +12,8 @@ import tensorflow.keras.optimizers
 
 nltk.download('wordnet')
 
+np.warnings.filterwarnings('ignore', category=np.VisibleDeprecationWarning)      # don't show dtype deprecation warning
+
 lemmatizer = WordNetLemmatizer()
 intents = json.loads(open('intents.json').read())
 
@@ -66,6 +68,6 @@ model.add(tensorflow.keras.layers.Dense(len(train_y[0]), activation='softmax'))
 sgd = tensorflow.keras.optimizers.SGD(decay=1e-6, momentum=0.9, nesterov=True)                  # decay parameter reduces the learning rate over time
 model.compile(loss='categorical_crossentropy', optimizer=sgd, metrics=['accuracy'])
 
-model.fit(np.array(train_x), np.array(train_y), epochs=200, batch_size=5, verbose=1)
-model.save('chatbot_simple_model.model')
+temp = model.fit(np.array(train_x), np.array(train_y), epochs=200, batch_size=5, verbose=1)
+model.save('chatbot.h5', temp)
 print("Finished")
